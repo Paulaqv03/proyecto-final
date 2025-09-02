@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario</title>
+  <link rel="stylesheet" href="/css/formulario.css">
+</head>
+<body>
+
+  <h1>Inventario Bodega</h1>
+
+  <form id="formulario">
+    <div class="form-group">
+      <label for="nombre">Producto</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Producto" required>
+    </div>
+    <div class="form-group">
+      <label for="categoria">Categoría</label>
+      <input type="text" id="categoria" name="categoria" placeholder="Categoría" required>
+    </div>
+    <div class="form-group">
+      <label for="cantidad">Cantidad</label>
+      <input type="number" id="cantidad" name="cantidad" placeholder="Cantidad" required>
+    </div>
+    <div class="form-group">
+      <label for="precio">Precio</label>
+      <input type="number" id="precio" name="precio" placeholder="Precio" step="0.01" required>
+    </div>
+    <div class="form-group">
+      <label for="fechaEntrada">Fecha de Entrada</label>
+      <input type="date" id="fechaEntrada" name="fechaEntrada" required>
+    </div>
+    <div class="form-group">
+      <label for="fechaCaducidad">Fecha de Caducidad</label>
+      <input type="date" id="fechaCaducidad" name="fechaCaducidad" required>
+    </div>
+    <div class="form-group">
+      <label for="proveedor">Mensaje</label>
+      <input id="proveedor" name="proveedor" placeholder="Proveedor" required></input>
+    </div>
+    <div class="form-group">
+      <button type="submit">Enviar</button>
+    </div>
+  </form>
+
+  <p id="respuesta"></p>
+
+  <script>
+    document.getElementById('formulario').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const datos = {
+        nombre: this.nombre.value,
+        categoria: this.categoria.value,
+        cantidad: this.cantidad.value,
+        precio: this.precio.value,
+        fechaEntrada: this.fechaEntrada.value,
+        fechaCaducidad: this.fechaCaducidad.value,
+        proveedor: this.proveedor.value
+      };
+
+      fetch('/api/productos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'ok') {
+          // 🔹 Redirigimos a la tabla para ver los datos actualizados desde la DB
+          window.location.href = "tabla.html";
+        } else {
+          document.getElementById('respuesta').innerText = data.message || 'Error al guardar';
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById('respuesta').innerText = 'Error al enviar los datos';
+      });
+    });
+  </script>
+
+
+</body>
+</html>

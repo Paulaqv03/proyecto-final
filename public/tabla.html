@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Productos</title>
+  <link rel="stylesheet" href="/css/tabla.css">
+</head>
+<body>
+
+  <h1>Listado de Productos</h1>
+
+  <table border="1" id="tabla-contactos">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Categoria</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Fecha Entrada</th>
+        <th>Fecha Caducidad</th>
+        <th>Proveedor</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    fetch('/api/productos')
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.querySelector('#tabla-contactos tbody');
+        data.forEach(producto => {
+          const fila = document.createElement('tr');
+          fila.innerHTML = `
+            <td>${producto.id}</td>
+            <td>${producto.nombre}</td>
+            <td>${producto.categoria}</td>
+            <td>${producto.cantidad}</td>
+            <td>${producto.precio}</td>
+            <td>${producto.fechaEntrada}</td>
+            <td>${producto.fechaCaducidad}</td>
+            <td>${producto.proveedor}</td>  
+          `;
+          tbody.appendChild(fila);
+        });
+      })
+    .catch(error => {
+      console.error('Error al cargar los productos:', error);
+    });
+  </script>
+
+
+</body>
+</html>
