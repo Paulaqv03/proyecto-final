@@ -7,23 +7,32 @@
 </head>
 <body>
 
-  <h1>Listado de Productos</h1>
+  <header>
+    <h1>Listado de Productos</h1>
+  </header>
 
-  <table border="1" id="tabla-contactos">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Categoria</th>
-        <th>Cantidad</th>
-        <th>Precio</th>
-        <th>Fecha Entrada</th>
-        <th>Fecha Caducidad</th>
-        <th>Proveedor</th>
-      </tr>
-    </thead>
+  <main>
+    <table border="1" id="tabla-contactos">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Categoria</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Fecha Entrada</th>
+          <th>Fecha Caducidad</th>
+          <th>Proveedor</th>
+        </tr>
+      </thead>
     <tbody></tbody>
-  </table>
+    </table>
+  </main>
+  
+
+  <footer>
+    © 2025 Inventario Bodega. Todos los derechos reservados.
+  </footer>
 
   <script>
     fetch('/api/productos')
